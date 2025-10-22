@@ -6,7 +6,6 @@
 int log_stack_depth = 0;
 uint8_t log_state = 1;
 
-#define LOGGER_DISABLED
 
 void level_log(uint8_t level, const char* msg, ...)
 {
@@ -29,7 +28,7 @@ void level_log(uint8_t level, const char* msg, ...)
         printf(">  ");
     }
     
-
+    #ifndef USE_STATIC_BUFFERS
     // Allocating memory for the message with 
     char* new_msg = (char*)(calloc(128, sizeof(uint8_t)));
     if(new_msg == NULL) {
@@ -39,9 +38,7 @@ void level_log(uint8_t level, const char* msg, ...)
         new_msg = NULL;
         return;
     }
-
     sprintf(new_msg, msg, format_specifier_value);
-
     switch (level) {
 
         case TRACE:
@@ -59,9 +56,33 @@ void level_log(uint8_t level, const char* msg, ...)
         case INFO:
             printf("Info:    %s\n", new_msg);
     }
+    #endif
+    #ifdef USE_STATIC_BUFFERS
+    char new_msg[128];
+    sprintf(&new_msg, msg, format_specifier_value);
+    switch (level) {
 
+        case TRACE:
+            printf("Trace:   %s\n", new_msg);
+            break;
+
+        case ERROR:
+            printf("! ERROR: %s\n", new_msg);
+            break;
+
+        case WARNING:
+            printf("Warning: %s\n", new_msg);
+            break;
+
+        case INFO:
+            printf("Info:    %s\n", new_msg);
+    }
+    #endif
+
+    #ifndef USE_STATIC_BUFFERS
     free(new_msg);
     new_msg = NULL;
+    #endif
 
     #endif
     return;
