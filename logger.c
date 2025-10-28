@@ -99,11 +99,13 @@ void logger_enable() {
 void REMOVE_FROM_STACK_DEPTH(void) {
     
     #ifndef LOGGER_DISABLED
-
-    log_stack_depth--;
-    if (log_stack_depth < MAX_STACK_DEPTH)
-    {
-        printf("------------------------------------------------------\n");
+    
+    if(log_state) {
+        log_stack_depth--;
+        if (log_stack_depth < MAX_STACK_DEPTH)
+        {
+            printf("------------------------------------------------------\n");
+        }
     }
 
     #endif
@@ -112,5 +114,5 @@ void REMOVE_FROM_STACK_DEPTH(void) {
 
 void ADD_TO_STACK_DEPTH(void)
 {
-    log_stack_depth++;
+    if(log_state) { log_stack_depth++; }
 }
