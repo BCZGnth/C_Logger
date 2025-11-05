@@ -58,8 +58,9 @@ void level_log(uint8_t level, const char* msg, ...)
     }
     #endif
     #ifdef USE_STATIC_BUFFERS
-    char new_msg[128];
-    sprintf(&new_msg, msg, format_specifier_value);
+    #define NEW_MSG_LENGTH 128
+    char new_msg[NEW_MSG_LENGTH];
+    snprintf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
     switch (level) {
 
         case TRACE:
@@ -89,11 +90,15 @@ void level_log(uint8_t level, const char* msg, ...)
 }
 
 void logger_disable() {
+    #ifndef LOGGER_DISABLED
     log_state = 0;
+    #endif
 }
 
 void logger_enable() {
+    #ifndef LOGGER_DISABLED
     log_state = 1;
+    #endif
 }
 
 void REMOVE_FROM_STACK_DEPTH(void) {
@@ -114,5 +119,7 @@ void REMOVE_FROM_STACK_DEPTH(void) {
 
 void ADD_TO_STACK_DEPTH(void)
 {
+    #ifndef LOGGER_DISABLED
     if(log_state) { log_stack_depth++; }
+    #endif
 }
