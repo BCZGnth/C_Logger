@@ -7,7 +7,7 @@
 #define INFO    4
 
 #define MAX_STACK_DEPTH 32
-#define LOGGER_DISABLED
+// #define LOGGER_DISABLED
 #define USE_STATIC_BUFFERS
 
 #include "system.h"
