@@ -13,7 +13,7 @@
 #include "system.h"
 
 int log_stack_depth;
-void level_log(uint8_t level, const char* msg, ...);
+void level_log(uint8_t level, const char* msg);
 void logger_disable();
 void logger_enable();
 void ADD_TO_STACK_DEPTH(void);

@@ -7,19 +7,35 @@ int log_stack_depth = 0;
 uint8_t log_state = 1;
 
 
-void level_log(uint8_t level, const char* msg, ...)
+void level_log(uint8_t level, const char* msg)
 {
     #ifndef LOGGER_DISABLED
 
     if(!log_state) return; 
     if(log_stack_depth >= MAX_STACK_DEPTH) return;
-    
-    va_list ap;
-    int format_specifier_value;
 
-    va_start (ap, msg);
-    format_specifier_value = va_arg (ap, int);
-    va_end (ap);
+    // unsigned int format_count = 0;
+    // const char * msg_copy;
+    // unsigned char potential_format = *msg_copy; 
+
+    // while(potential_format != '\0') {
+    //     if(potential_format == '%') {
+    //         msg_copy++;
+    //         potential_format = *msg_copy;
+    //         if(potential_format != ' ' | potential_format != '\0') {
+    //             format_count++;
+    //             continue;
+    //         }
+    //     }
+    //     msg_copy++;
+    // }
+    
+    // va_list ap;
+    // int format_specifier_value;
+
+    // va_start (ap, msg);
+    // format_specifier_value = va_arg (ap, int);
+    // va_end (ap);
 
     /* To Keep track of the call stack visually,
      I am putting spaces before the log message 
@@ -58,25 +74,25 @@ void level_log(uint8_t level, const char* msg, ...)
     }
     #endif
     #ifdef USE_STATIC_BUFFERS
-    #define NEW_MSG_LENGTH 128
-    char new_msg[NEW_MSG_LENGTH];
-    snprintf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
+    // #define NEW_MSG_LENGTH 128
+    // char new_msg[NEW_MSG_LENGTH];
+    // snprintf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
     switch (level) {
 
         case TRACE:
-            printf("Trace:   %s\n", new_msg);
+            printf("Trace:   %s\n", msg);
             break;
 
         case ERROR:
-            printf("! ERROR: %s\n", new_msg);
+            printf("! ERROR: %s\n", msg);
             break;
 
         case WARNING:
-            printf("Warning: %s\n", new_msg);
+            printf("Warning: %s\n", msg);
             break;
 
         case INFO:
-            printf("Info:    %s\n", new_msg);
+            printf("Info:    %s\n", msg);
     }
     #endif
 
