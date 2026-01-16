@@ -41,58 +41,58 @@ void level_log(uint8_t level, const char* msg)
      I am putting spaces before the log message 
      */
     for(int i=0; i<log_stack_depth; i++){
-        printf(">  ");
+        // printf(">  ");
     }
     
     #ifndef USE_STATIC_BUFFERS
     // Allocating memory for the message with 
     char* new_msg = (char*)(calloc(128, sizeof(uint8_t)));
     if(new_msg == NULL) {
-        printf("Memory allocation for new_msg failed\n");
+        // printf("Memory allocation for new_msg failed\n");
         /* ensure the memory is properly released */
         free(new_msg);
         new_msg = NULL;
         return;
     }
-    sprintf(new_msg, msg, format_specifier_value);
+    s// printf(new_msg, msg, format_specifier_value);
     switch (level) {
 
         case TRACE:
-            printf("Trace:   %s\n", new_msg);
+            // printf("Trace:   %s\n", new_msg);
             break;
 
         case ERROR:
-            printf("! ERROR: %s\n", new_msg);
+            // printf("! ERROR: %s\n", new_msg);
             break;
 
         case WARNING:
-            printf("Warning: %s\n", new_msg);
+            // printf("Warning: %s\n", new_msg);
             break;
 
         case INFO:
-            printf("Info:    %s\n", new_msg);
+            // printf("Info:    %s\n", new_msg);
     }
     #endif
     #ifdef USE_STATIC_BUFFERS
     // #define NEW_MSG_LENGTH 128
     // char new_msg[NEW_MSG_LENGTH];
-    // snprintf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
+    // sn// printf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
     switch (level) {
 
         case TRACE:
-            printf("Trace:   %s\n", msg);
+            // printf("Trace:   %s\n", msg);
             break;
 
         case ERROR:
-            printf("! ERROR: %s\n", msg);
+            // printf("! ERROR: %s\n", msg);
             break;
 
         case WARNING:
-            printf("Warning: %s\n", msg);
+            // printf("Warning: %s\n", msg);
             break;
 
         case INFO:
-            printf("Info:    %s\n", msg);
+            // printf("Info:    %s\n", msg);
     }
     #endif
 
@@ -125,7 +125,7 @@ void REMOVE_FROM_STACK_DEPTH(void) {
         log_stack_depth--;
         if (log_stack_depth < MAX_STACK_DEPTH)
         {
-            printf("------------------------------------------------------\n");
+            // printf("------------------------------------------------------\n");
         }
     }
 
