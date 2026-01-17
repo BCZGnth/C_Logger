@@ -76,23 +76,23 @@ void level_log(uint8_t level, const char* msg)
     #ifdef USE_STATIC_BUFFERS
     // #define NEW_MSG_LENGTH 128
     // char new_msg[NEW_MSG_LENGTH];
-    // sn// printf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
+    // snprintf(&new_msg[0], NEW_MSG_LENGTH, msg, format_specifier_value);
     switch (level) {
 
         case TRACE:
-            // printf("Trace:   %s\n", msg);
+            printf("Trace:   %s\n", msg);
             break;
 
         case ERROR:
-            // printf("! ERROR: %s\n", msg);
+            printf("! ERROR: %s\n", msg);
             break;
 
         case WARNING:
-            // printf("Warning: %s\n", msg);
+            printf("Warning: %s\n", msg);
             break;
 
         case INFO:
-            // printf("Info:    %s\n", msg);
+            printf("Info:    %s\n", msg);
     }
     #endif
 
